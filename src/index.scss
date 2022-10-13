@@ -19,33 +19,29 @@ body {
   font-size: 1.5rem;
   background-color: var(--clr-primary);
   color: var(--clr-light);
-
-  display: grid;
-  grid:
-    "header header header header" auto
-    "...... lists  active ......" auto /
-    1fr minmax(100px, 300px) minmax(250px, 500px) 1fr;
 }
 
 .title {
-  grid-area: header;
   text-align: center;
   font-size: calc(7vw + 2rem);
   font-weight: 900;
   color: rgba(0, 0, 0, 0.1);
   letter-spacing: 2px;
-  margin: -0.3em 0 0.5em;
+  margin: 0.1em;
 }
 
-.all-tasks {
-  grid-area: lists;
-}
+.tasks-wrapper {
+  display: flex;
+  justify-content: space-evenly;
 
-.task-list {
-  font-size: 1.2rem;
-  line-height: 1.7;
-  list-style: circle;
-  padding-left: 1.1em;
+  .all-tasks {
+    .task-list {
+      font-size: 1.2rem;
+      line-height: 1.7;
+      list-style: circle;
+      padding-left: 1.1em;
+    }
+  }
 }
 
 .list-name {
@@ -58,25 +54,25 @@ body {
 
 form {
   display: flex;
-}
 
-.btn {
-  cursor: pointer;
-  background: 0;
-  border: 0;
-  padding: 0;
-  color: inherit;
-}
+  .btn {
+    cursor: pointer;
+    background: 0;
+    border: 0;
+    padding: 0;
+    color: inherit;
+  }
 
-.btn.create {
-  font-size: 1.5rem;
-  font-weight: 900;
-  margin-right: 0.25em;
-  transition: opacity 250ms ease-in;
-}
+  .btn.create {
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin-right: 0.25em;
+    transition: opacity 250ms ease-in;
+  }
 
-.btn.create:hover {
-  opacity: 0.7;
+  .btn.create:hover {
+    opacity: 0.7;
+  }
 }
 
 .btn.delete {
