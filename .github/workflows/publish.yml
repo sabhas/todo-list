@@ -3,7 +3,7 @@ name: Build App and Push gh-pages Branch
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   generate_and_push_docs:
