@@ -29,6 +29,7 @@ function App() {
   const [newTaskName, setNewTaskName] = useState("")
   const [lists, setLists] = useState<List[]>([])
   const [selectedListId, setSelectedListId] = useState("")
+  const [hideCompletedTasks, setHideCompletedTasks] = useState(false)
 
   useEffect(() => {
     let listFetchedFromLocalStorage
@@ -134,34 +135,36 @@ function App() {
 
             <div className="todo-body">
               <div className="tasks">
-                {selectedList.tasks.map((task: Task) => (
-                  <div className="task">
-                    <input
-                      type="checkbox"
-                      id={task.id}
-                      checked={task.complete}
-                      onChange={(e) => {
-                        task.complete = e.target.checked
-                        const updatedTasks = selectedList.tasks.map((item) =>
-                          item.id !== task.id
-                            ? item
-                            : { ...item, complete: e.target.checked }
-                        )
-                        setLists((prevLists) => [
-                          ...prevLists.map((list) =>
-                            list.id !== selectedList.id
-                              ? list
-                              : { ...list, tasks: updatedTasks }
-                          ),
-                        ])
-                      }}
-                    />
-                    <label htmlFor={task.id}>
-                      <span className="custom-checkbox"></span>
-                      {task.name}
-                    </label>
-                  </div>
-                ))}
+                {selectedList.tasks.map((task: Task) =>
+                  hideCompletedTasks && task.complete ? null : (
+                    <div className="task">
+                      <input
+                        type="checkbox"
+                        id={task.id}
+                        checked={task.complete}
+                        onChange={(e) => {
+                          task.complete = e.target.checked
+                          const updatedTasks = selectedList.tasks.map((item) =>
+                            item.id !== task.id
+                              ? item
+                              : { ...item, complete: e.target.checked }
+                          )
+                          setLists((prevLists) => [
+                            ...prevLists.map((list) =>
+                              list.id !== selectedList.id
+                                ? list
+                                : { ...list, tasks: updatedTasks }
+                            ),
+                          ])
+                        }}
+                      />
+                      <label htmlFor={task.id}>
+                        <span className="custom-checkbox"></span>
+                        {task.name}
+                      </label>
+                    </div>
+                  )
+                )}
               </div>
 
               <div className="new-task-creator">
@@ -199,6 +202,14 @@ function App() {
                 >
                   Clear completed tasks
                 </button>
+
+                <button
+                  className="btn delete"
+                  onClick={() => setHideCompletedTasks((prev) => !prev)}
+                >
+                  {hideCompletedTasks ? "Show Completed" : "Hide Completed"}
+                </button>
+
                 <button
                   className="btn delete"
                   onClick={() => {
