@@ -150,6 +150,11 @@ form {
 .todo-body {
   padding: var(--spacer);
   position: relative;
+
+  .tasks {
+    max-height: 450px;
+    overflow-y: auto;
+  }
 }
 
 .new-task-creator .create {
