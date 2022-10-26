@@ -170,6 +170,10 @@ form {
 .task {
   position: relative;
   margin-bottom: 1.25em;
+  white-space: nowrap;
+  overflow-y: hidden;
+  overflow-x: auto;
+  max-width: 350px;
 }
 
 .task::after {
