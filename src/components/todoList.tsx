@@ -96,46 +96,46 @@ const TodoList = ({
             </button>
           </form>
         </div>
+      </div>
 
-        <div className="delete-stuff">
-          <button
-            className="btn delete"
-            onClick={() => {
-              const incompleteTasks = selectedList.tasks.filter(
-                (task: any) => !task.complete
-              )
+      <div className="delete-stuff">
+        <button
+          className="btn delete"
+          onClick={() => {
+            const incompleteTasks = selectedList.tasks.filter(
+              (task: any) => !task.complete
+            )
 
-              setLists((prevLists) => [
-                ...prevLists.map((list) =>
-                  list.id !== selectedList.id
-                    ? list
-                    : { ...list, tasks: incompleteTasks }
-                ),
-              ])
-            }}
-          >
-            Clear completed tasks
-          </button>
+            setLists((prevLists) => [
+              ...prevLists.map((list) =>
+                list.id !== selectedList.id
+                  ? list
+                  : { ...list, tasks: incompleteTasks }
+              ),
+            ])
+          }}
+        >
+          Clear completed tasks
+        </button>
 
-          <button
-            className="btn delete"
-            onClick={() => setHideCompletedTasks((prev) => !prev)}
-          >
-            {hideCompletedTasks ? "Show Completed" : "Hide Completed"}
-          </button>
+        <button
+          className="btn delete"
+          onClick={() => setHideCompletedTasks((prev) => !prev)}
+        >
+          {hideCompletedTasks ? "Show Completed" : "Hide Completed"}
+        </button>
 
-          <button
-            className="btn delete"
-            onClick={() => {
-              setLists((prevLists) => [
-                ...prevLists.filter((list: List) => list.id !== selectedListId),
-              ])
-              setSelectedListId("")
-            }}
-          >
-            Delete list
-          </button>
-        </div>
+        <button
+          className="btn delete"
+          onClick={() => {
+            setLists((prevLists) => [
+              ...prevLists.filter((list: List) => list.id !== selectedListId),
+            ])
+            setSelectedListId("")
+          }}
+        >
+          Delete list
+        </button>
       </div>
     </div>
   )
