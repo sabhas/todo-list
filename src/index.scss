@@ -33,6 +33,9 @@ body {
 .tasks-wrapper {
   display: flex;
   justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
 
   .all-tasks {
     .task-list {
@@ -51,6 +54,152 @@ body {
 
       .active-list {
         font-weight: 700;
+      }
+    }
+  }
+
+  .todo-list {
+    --spacer: 2rem;
+    grid-area: active;
+    background: var(--clr-light);
+    color: var(--clr-dark);
+    margin-top: 20px;
+
+    .todo-header {
+      padding: var(--spacer);
+      background: #e4e4e4;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .list-title {
+        margin: 0 1em 0 0;
+      }
+
+      .task-count {
+        margin: 0;
+        font-size: 1rem;
+      }
+    }
+
+    .todo-body {
+      padding: var(--spacer);
+      position: relative;
+
+      .tasks {
+        max-height: 450px;
+        overflow-y: auto;
+
+        .task {
+          position: relative;
+          margin-bottom: 1.25em;
+          white-space: nowrap;
+          overflow-y: hidden;
+          overflow-x: auto;
+
+          @media (max-width: 576px) {
+            max-width: 300px;
+          }
+
+          @media (min-width: 577px) and (max-width: 768px) {
+            max-width: 500px;
+          }
+
+          @media (min-width: 769px) and (max-width: 992px) {
+            max-width: 650px;
+          }
+
+          @media (min-width: 992px) and (max-width: 1200px) {
+            max-width: 800px;
+          }
+
+          @media (min-width: 1201px) and (max-width: 1400px) {
+            max-width: 950px;
+          }
+
+          @media (min-width: 1401px) {
+            max-width: 1100px;
+          }
+
+          &::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            left: 0;
+            bottom: -0.5em;
+            height: 1px;
+            background: currentColor;
+            opacity: 0.1;
+          }
+
+          &:hover {
+            .custom-checkbox {
+              transform: scale(1.2);
+              color: var(--clr-primary);
+            }
+          }
+
+          .custom-checkbox {
+            --size: 0.75em;
+            display: inline-block;
+            width: var(--size);
+            height: var(--size);
+            margin-right: var(--size);
+            cursor: pointer;
+            border: 2px solid currentColor;
+            border-radius: 50%;
+            transform: scale(1);
+            transition: transform 300ms ease-in-out;
+          }
+
+          label {
+            display: flex-inline;
+            align-items: center;
+            position: relative;
+
+            &::after {
+              content: "";
+              position: absolute;
+              left: 0;
+              right: 0;
+              left: 1.5em;
+              top: 50%;
+              height: 3px;
+              background: currentColor;
+              transform: scaleX(0);
+              transform-origin: right;
+              transition: transform 150ms ease-in-out;
+            }
+          }
+
+          [type="checkbox"] {
+            opacity: 0;
+            position: absolute;
+
+            &:checked {
+              + label {
+                opacity: 0.5;
+
+                &::after {
+                  transform: scaleX(1);
+                  transform-origin: left;
+                }
+
+                .custom-checkbox {
+                  background: var(--clr-primary);
+                  border-color: var(--clr-primary);
+                  box-shadow: inset 0 0 0px 2px white;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .new-task-creator {
+        .create {
+          color: var(--clr-primary);
+        }
       }
     }
   }
@@ -92,130 +241,15 @@ form {
   }
 }
 
-.todo-list {
-  --spacer: 2rem;
-  grid-area: active;
-  background: var(--clr-light);
-  color: var(--clr-dark);
-
-  .todo-header {
-    padding: var(--spacer);
-    background: #e4e4e4;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .list-title {
-      margin: 0 1em 0 0;
-    }
-
-    .task-count {
-      margin: 0;
-      font-size: 1rem;
-    }
-  }
-
-  .todo-body {
-    padding: var(--spacer);
-    position: relative;
-
-    .tasks {
-      max-height: 450px;
-      overflow-y: auto;
-
-      .task {
-        position: relative;
-        margin-bottom: 1.25em;
-        white-space: nowrap;
-        overflow-y: hidden;
-        overflow-x: auto;
-        max-width: 350px;
-
-        &::after {
-          content: "";
-          position: absolute;
-          right: 0;
-          left: 0;
-          bottom: -0.5em;
-          height: 1px;
-          background: currentColor;
-          opacity: 0.1;
-        }
-
-        &:hover {
-          .custom-checkbox {
-            transform: scale(1.2);
-            color: var(--clr-primary);
-          }
-        }
-
-        .custom-checkbox {
-          --size: 0.75em;
-          display: inline-block;
-          width: var(--size);
-          height: var(--size);
-          margin-right: var(--size);
-          cursor: pointer;
-          border: 2px solid currentColor;
-          border-radius: 50%;
-          transform: scale(1);
-          transition: transform 300ms ease-in-out;
-        }
-
-        label {
-          display: flex-inline;
-          align-items: center;
-          position: relative;
-
-          &::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            right: 0;
-            left: 1.5em;
-            top: 50%;
-            height: 3px;
-            background: currentColor;
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 150ms ease-in-out;
-          }
-        }
-
-        [type="checkbox"] {
-          opacity: 0;
-          position: absolute;
-
-          &:checked {
-            + label {
-              opacity: 0.5;
-
-              &::after {
-                transform: scaleX(1);
-                transform-origin: left;
-              }
-
-              .custom-checkbox {
-                background: var(--clr-primary);
-                border-color: var(--clr-primary);
-                box-shadow: inset 0 0 0px 2px white;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    .new-task-creator {
-      .create {
-        color: var(--clr-primary);
-      }
-    }
-  }
-}
-
 .delete-stuff {
   display: flex;
+  justify-content: space-around;
+  margin-bottom: 5px;
+
+  .btn {
+    padding: 5px;
+    border: 1px solid black;
+  }
 }
 
 .btn {
