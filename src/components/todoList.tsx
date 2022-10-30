@@ -1,4 +1,4 @@
-import React, { useState, Dispatch, SetStateAction } from "react"
+import React, { useState, Dispatch, SetStateAction, useMemo } from "react"
 import { List, Task } from "../utils/types"
 import { createTask } from "../utils/helper"
 
@@ -18,13 +18,14 @@ const TodoList = ({
   const [hideCompletedTasks, setHideCompletedTasks] = useState(false)
   const [newTaskName, setNewTaskName] = useState("")
 
-  const getIncompleteTaskCount = (list: List) => {
-    const incompleteTaskCount = list.tasks.filter(
+  const incompleteTaskCount = useMemo(() => {
+    const totalCount = selectedList.tasks.length
+    const incompleteTaskCount = selectedList.tasks.filter(
       (task: any) => !task.complete
     ).length
     const taskString = incompleteTaskCount === 1 ? "task" : "tasks"
-    return `${incompleteTaskCount} ${taskString} remaining`
-  }
+    return `${incompleteTaskCount} / ${totalCount} ${taskString} remaining`
+  }, [selectedList])
 
   const addNewTask = (e: any, listId: string) => {
     e.preventDefault()
@@ -44,7 +45,7 @@ const TodoList = ({
     <div className="todo-list">
       <div className="todo-header">
         <h2 className="list-title">{selectedList.name}</h2>
-        <p className="task-count">{getIncompleteTaskCount(selectedList)}</p>
+        <p className="task-count">{incompleteTaskCount}</p>
       </div>
 
       <div className="todo-body">
